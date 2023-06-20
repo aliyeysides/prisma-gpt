@@ -1,9 +1,13 @@
 {
-  "name": "prisma-client-extension-starter",
+  "name": "gpt-prisma",
   "version": "0.0.0",
   "author": "",
   "description": "",
-  "keywords": ["prisma", "@prisma/client", "extension"],
+  "keywords": [
+    "prisma",
+    "@prisma/client",
+    "extension"
+  ],
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {

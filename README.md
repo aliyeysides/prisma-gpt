@@ -6,6 +6,7 @@ Prisma-GPT uses the prisma `$queryRawUnsafe` API which puts users at risk of SQL
 
 ### Add Environment variables
 ```.env
+# .env
 DATABASE_URL=
 OPENAI_API_KEY=
 ```

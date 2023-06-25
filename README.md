@@ -3,6 +3,13 @@
 ### Warning:
 Prisma-GPT uses the prisma `$queryRawUnsafe` API which puts users at risk of SQL injection attacks. Prisma-GPT is NOT meant for production.
 
+
+### Add Environment variables
+```.env
+DATABASE_URL=
+OPENAI_API_KEY=
+```
+
 ### Run example after cloning this repo
 ```zsh
 npm install

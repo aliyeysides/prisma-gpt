@@ -1,22 +1,17 @@
 import { PrismaClient } from "@prisma/client";
-import { existsFn } from "../dist"
+import { queryGPT, listEngines } from "../dist"
 
-const prisma = new PrismaClient().$extends(existsFn({}))
+const prisma = new PrismaClient().$extends(queryGPT({}))
 
 async function main() {
-  const user = await prisma.user.exists({ where: { id: 1 } })
+  const user = prisma.$queryGPT("return all users")
+  try {
+    await listEngines()
+  } catch (e) {
+    console.log(e)
+  }
 
-  const post = await prisma.post.exists({
-    where: {
-      OR: [
-        { title: { contains: 'prisma' } },
-        { content: { contains: 'prisma' } },
-      ],
-      published: true,
-    },
-  })
-
-  console.log({ user, post })
+  console.log({ user })
 }
 
 main()

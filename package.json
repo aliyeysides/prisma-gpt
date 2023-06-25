@@ -18,7 +18,11 @@
   },
   "devDependencies": {
     "@prisma/client": "latest",
+    "@types/node": "^20.3.1",
     "prisma": "latest",
     "typescript": "4.9.4"
+  },
+  "dependencies": {
+    "openai": "^3.3.0"
   }
 }

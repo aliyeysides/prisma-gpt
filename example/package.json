@@ -4,7 +4,8 @@
     "dev": "ts-node --transpile-only index.ts"
   },
   "dependencies": {
-    "@prisma/client": "^4.15.0"
+    "@prisma/client": "^4.15.0",
+    "openai": "^3.3.0"
   },
   "devDependencies": {
     "prisma": "^4.15.0",

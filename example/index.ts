@@ -5,14 +5,7 @@ const prisma = new PrismaClient().$extends(queryGPT({}))
 
 async function main() {
   try {
-    const user = await prisma.$queryGPT("return all users", `model User {
-  id    Int    @id @default (autoincrement())
-  email String @unique
-  name  String
-
-  posts Post[]
-  }
-`)
+    const user = await prisma.$queryGPT("return all posts and users")
     console.log({ user })
   } catch (e) {
     console.log(e)

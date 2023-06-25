@@ -13,7 +13,14 @@ export const queryGPT = (_extensionArgs: Args) =>
   Prisma.defineExtension({
     name: "prisma-gpt",
     client: {
-      async $queryGPT(str: string, schema: string) {
+      async $queryGPT(str: string) {
+        const schema = require("fs").readFileSync("prisma/schema.prisma", 'utf8')
+        if (!str) {
+          throw new Error("No query string provided")
+        }
+        if (!schema) {
+          throw new Error("No schema provided. Please provide a schema.prisma file in the root of your project")
+        }
         const prompt = `
           You are an AI assistant that returns raw sql queries using natural language. 
           You only output raw SQL queries. Never return anything other than raw SQL.

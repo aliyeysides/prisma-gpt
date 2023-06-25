@@ -1,17 +1,15 @@
 import { PrismaClient } from "@prisma/client";
-import { queryGPT, listEngines } from "../dist"
+import { queryGPT } from "../dist"
 
 const prisma = new PrismaClient().$extends(queryGPT({}))
 
 async function main() {
-  const user = prisma.$queryGPT("return all users")
   try {
-    await listEngines()
+    const user = await prisma.$queryGPT("hello how are you?")
+    console.log({ user })
   } catch (e) {
     console.log(e)
   }
-
-  console.log({ user })
 }
 
 main()

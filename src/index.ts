@@ -7,10 +7,13 @@ const configuration = new Configuration({
 
 const openai = new OpenAIApi(configuration)
 
-export const listEngines = async () => {
-  console.log('apiKey:', process.env.OPENAI_API_KEY)
-  const response = await openai.listEngines()
-  console.log('listEngines:', response.data)
+const queryFn = async (str: string) => {
+  const response = await openai.createChatCompletion({
+    model: "gpt-3.5-turbo",
+    messages: [{ role: "system", content: str }],
+  })
+  console.log('queryFn:', response.data.choices[0].message)
+  return response.data.choices[0].message
 }
 
 type Args = {}
@@ -37,6 +40,6 @@ export const queryGPT = (_extensionArgs: Args) =>
   Prisma.defineExtension({
     name: "prisma-gpt",
     client: {
-      $queryGPT: (str: string) => console.log(str)
+      $queryGPT: queryFn,
     },
   })

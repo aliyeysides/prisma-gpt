@@ -26,7 +26,7 @@ export const queryGPT = (_extensionArgs: Args) =>
           You only output raw SQL queries. Never return anything other than raw SQL.
           Always begin the query with SELECT. You will be given the following schema:
            ${schema}
-          Take the below query and return raw SQL (Postgres)):
+          Take the below query and return raw SQL (sqlite)):
            ${str}
           `
         const response = await openai.createChatCompletion({

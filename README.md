@@ -1,6 +1,6 @@
 # Prisma-GPT is a prisma client extension that lets you write db queries using natural language. 
 
-### Warning:
+### ⚠️ Warning:
 Prisma-GPT uses the prisma `$queryRawUnsafe` API which puts users at risk of SQL injection attacks. Prisma-GPT is NOT meant for production.
 
 ### Installation
@@ -15,6 +15,14 @@ const xprisma = prisma.$extends(queryGPT())
 
 const result = await prisma.$queryGPT("return all users")
 ```
+
+### TODO
+[x] Automatically read `schema.prisma` file
+[x] Only allow SQL statements that begin with "SELECT"
+[] Add support for other dbs
+[] Add support for open source LLMs
+[] Prisma-GPT CLI
+[] Prisma-GPT Studio
 
 ## Testing
 

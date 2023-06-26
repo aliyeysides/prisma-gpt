@@ -3,6 +3,20 @@
 ### Warning:
 Prisma-GPT uses the prisma `$queryRawUnsafe` API which puts users at risk of SQL injection attacks. Prisma-GPT is NOT meant for production.
 
+### Installation
+```zsh
+npm install prisma-gpt
+```
+
+### Usage
+```ts
+import { queryGPT } from "prisma-gpt"
+const xprisma = prisma.$extends(queryGPT())
+
+const result = await prisma.$queryGPT("return all users")
+```
+
+## Testing
 
 ### Add Environment variables
 ```.env

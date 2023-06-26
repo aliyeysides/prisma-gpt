@@ -13,7 +13,7 @@ npm install prisma-gpt
 import { queryGPT } from "prisma-gpt"
 const xprisma = prisma.$extends(queryGPT())
 
-const result = await prisma.$queryGPT("return all users")
+const result = await xprisma.$queryGPT("return all users")
 ```
 
 ### TODO

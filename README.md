@@ -17,12 +17,12 @@ const result = await prisma.$queryGPT("return all users")
 ```
 
 ### TODO
-[x] Automatically read `schema.prisma` file
-[x] Only allow SQL statements that begin with "SELECT"
-[] Add support for other dbs
-[] Add support for open source LLMs
-[] Prisma-GPT CLI
-[] Prisma-GPT Studio
+- [x] Automatically read `schema.prisma` file
+- [x] Only allow SQL statements that begin with "SELECT"
+- [ ] Add support for other dbs
+- [ ] Add support for open source LLMs
+- [ ] Prisma-GPT CLI
+- [ ] Prisma-GPT Studio
 
 ## Testing
 

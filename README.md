@@ -14,7 +14,7 @@ npm install prisma-gpt
 import { queryGPT } from "prisma-gpt"
 const xprisma = prisma.$extends(queryGPT({ db: "sqlite" }))
 
-const result = await xprisma.$queryGPT("return all users")
+const result = await xprisma.$queryGPT("return all unpublished posts but exclude the author's email")
 ```
 
 ### TODO

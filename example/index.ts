@@ -1,7 +1,7 @@
 import { PrismaClient } from "@prisma/client";
 import { queryGPT } from "../dist"
 
-const prisma = new PrismaClient().$extends(queryGPT({}))
+const prisma = new PrismaClient().$extends(queryGPT({ db: "sqlite" }))
 
 async function main() {
   try {

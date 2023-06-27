@@ -12,7 +12,7 @@ npm install prisma-gpt
 ### Usage
 ```ts
 import { queryGPT } from "prisma-gpt"
-const xprisma = prisma.$extends(queryGPT())
+const xprisma = prisma.$extends(queryGPT({ db: "sqlite" }))
 
 const result = await xprisma.$queryGPT("return all users")
 ```

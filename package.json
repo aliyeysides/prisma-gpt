@@ -6,7 +6,10 @@
   "keywords": [
     "prisma",
     "@prisma/client",
-    "extension"
+    "extension",
+    "ai",
+    "gpt",
+    "prisma-gpt"
   ],
   "main": "dist/index.js",
   "types": "dist/index.d.ts",

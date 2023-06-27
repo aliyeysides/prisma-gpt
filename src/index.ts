@@ -7,7 +7,9 @@ const configuration = new Configuration({
 
 const openai = new OpenAIApi(configuration)
 
-type Args = {}
+type Args = {
+  db?: string
+}
 
 export const queryGPT = (_extensionArgs: Args) =>
   Prisma.defineExtension({
@@ -21,14 +23,18 @@ export const queryGPT = (_extensionArgs: Args) =>
         if (!schema) {
           throw new Error("No schema provided. Please provide a schema.prisma file in the root of your project")
         }
+
+        const newLinesAndCarriageReturns = /[\r\n]+/gm
+        const database = _extensionArgs && _extensionArgs.db ? _extensionArgs.db : "sqlite"
+        console.log("schema:", schema.replace(newLinesAndCarriageReturns, " "))
         const prompt = `
           You are an AI assistant that returns raw sql queries using natural language. 
           You only output raw SQL queries. Never return anything other than raw SQL.
           Always begin the query with SELECT. You will be given the following schema:
-           ${schema}
-          Take the below query and return raw SQL (sqlite)):
+           ${schema.replace(newLinesAndCarriageReturns, "")}
+          Take the below query and return raw SQL(${database})):
            ${str}
-          `
+`
         const response = await openai.createChatCompletion({
           model: "gpt-3.5-turbo",
           messages: [{ role: "system", content: prompt }],
@@ -39,20 +45,17 @@ export const queryGPT = (_extensionArgs: Args) =>
         }
 
         const query = response.data.choices[0].message?.content
-        console.log('query:', response.data.choices[0])
 
         if (!query) {
           throw new Error("No query from OpenAI")
         }
 
-        const newLinesAndCarriageReturns = /[\r\n]+/gm
-        const trimmed = query.replace(newLinesAndCarriageReturns, "")
-        console.log('query trimmed:', trimmed)
-
+        const trimmed = query.replace(newLinesAndCarriageReturns, " ")
+        console.log("prisma-gpt-query:", trimmed)
         const ctx = Prisma.getExtensionContext(this)
 
         try {
-          const res = await (ctx as any).$queryRawUnsafe(`${trimmed}`)
+          const res = await (ctx as any).$queryRawUnsafe(`${trimmed} `)
           return res
         } catch (e) {
           console.log(e)

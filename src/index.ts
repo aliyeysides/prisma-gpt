@@ -26,7 +26,6 @@ export const queryGPT = (_extensionArgs: Args) =>
 
         const newLinesAndCarriageReturns = /[\r\n]+/gm
         const database = _extensionArgs && _extensionArgs.db ? _extensionArgs.db : "sqlite"
-        console.log("schema:", schema.replace(newLinesAndCarriageReturns, " "))
         const prompt = `
           You are an AI assistant that returns raw sql queries using natural language. 
           You only output raw SQL queries. Never return anything other than raw SQL.

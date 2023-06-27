@@ -14,7 +14,21 @@ npm install prisma-gpt
 import { queryGPT } from "prisma-gpt"
 const xprisma = prisma.$extends(queryGPT({ db: "sqlite" }))
 
-const result = await xprisma.$queryGPT("return all unpublished posts but exclude the author's email")
+const result = await xprisma.$queryGPT("return all unpublished posts but exclude the email field")
+// prisma-gpt-query: SELECT id, createdAt, updatedAt, title, content, published, authorId FROM Post WHERE published = false;
+// {
+//   res: [
+//     {
+//       id: 5,
+//       createdAt: 2023-06-27T19:32:40.802Z,
+//       updatedAt: 2023-06-27T19:32:40.781Z,
+//       title: 'Hello World 2',
+//       content: 'This is my second post',
+//       published: false,
+//       authorId: 5
+//     }
+//   ]
+// }
 ```
 
 ### TODO

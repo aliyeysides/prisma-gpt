@@ -30,7 +30,7 @@ async function main() {
     })
 
     console.log({ user });
-    const res = await prisma.$queryGPT("return all unpublished posts but exclude the author's email")
+    const res = await prisma.$queryGPT("return all unpublished posts but exclude the email field.")
     console.log({ res })
   } catch (e) {
     console.log(e)

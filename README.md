@@ -9,6 +9,13 @@ Prisma-GPT uses the prisma `$queryRawUnsafe` API which puts users at risk of SQL
 npm install prisma-gpt
 ```
 
+### Add Environment variables
+```.env
+# .env
+DATABASE_URL=
+OPENAI_API_KEY=
+```
+
 ### Usage
 ```ts
 import { queryGPT } from "prisma-gpt"
@@ -40,13 +47,6 @@ const result = await xprisma.$queryGPT("return all unpublished posts but exclude
 - [ ] Prisma-GPT Studio
 
 ## Testing
-
-### Add Environment variables
-```.env
-# .env
-DATABASE_URL=
-OPENAI_API_KEY=
-```
 
 ### Run example after cloning this repo
 ```zsh

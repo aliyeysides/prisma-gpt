@@ -1,4 +1,4 @@
-import { Prisma } from '@prisma/client/scripts/default-index'
+import { Prisma } from '@prisma/client/extension'
 import { Configuration, OpenAIApi } from 'openai'
 
 const configuration = new Configuration({

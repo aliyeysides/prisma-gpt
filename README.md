@@ -19,7 +19,7 @@ OPENAI_API_KEY=
 ### Usage
 ```ts
 import { queryGPT } from "prisma-gpt"
-const xprisma = prisma.$extends(queryGPT({ db: "sqlite" }))
+const xprisma = prisma.$extends(queryGPT({ db: "sqlite", model: "gpt-3.5-turbo" }))
 
 const result = await xprisma.$queryGPT("return all unpublished posts but exclude the email field")
 // prisma-gpt-query: SELECT id, createdAt, updatedAt, title, content, published, authorId FROM Post WHERE published = false;
@@ -38,13 +38,23 @@ const result = await xprisma.$queryGPT("return all unpublished posts but exclude
 // }
 ```
 
+### Config
+Pass the following optional arguments:
+```ts
+type Args = {
+  db?: string // ex. "postgres", "mysql". default is "sqlite"
+  model?: string // ex. "gpt-4". default is "gpt-3.5-turbo"
+}
+```
+
 ### TODO
 - [x] Automatically read `schema.prisma` file
 - [x] Only allow SQL statements that begin with "SELECT"
+- [ ] Add query builder without sql
 - [ ] Add support for other dbs
 - [ ] Add support for open source LLMs
-- [ ] Prisma-GPT CLI
-- [ ] Prisma-GPT Studio
+- [ ] Prisma-gpt cli
+- [ ] Prisma-gpt studio
 
 ## Testing
 

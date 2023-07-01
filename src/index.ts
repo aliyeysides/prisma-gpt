@@ -9,6 +9,7 @@ const openai = new OpenAIApi(configuration)
 
 type Args = {
   db?: string
+  model?: string
 }
 
 export const queryGPT = (_extensionArgs: Args) =>
@@ -21,7 +22,7 @@ export const queryGPT = (_extensionArgs: Args) =>
           throw new Error("No query string provided")
         }
         if (!schema) {
-          throw new Error("No schema provided. Please provide a schema.prisma file in the root of your project")
+          throw new Error("No schema provided. Please provide a prisma/schema.prisma file in the root of your project")
         }
 
         const newLinesAndCarriageReturns = /[\r\n]+/gm
@@ -34,8 +35,9 @@ export const queryGPT = (_extensionArgs: Args) =>
           Take the below query and return raw SQL(${database})):
            ${str}
 `
+        const model = _extensionArgs && _extensionArgs.model ? _extensionArgs.model : "gpt-3.5-turbo"
         const response = await openai.createChatCompletion({
-          model: "gpt-3.5-turbo",
+          model,
           messages: [{ role: "system", content: prompt }],
         })
 
@@ -46,7 +48,7 @@ export const queryGPT = (_extensionArgs: Args) =>
         const query = response.data.choices[0].message?.content
 
         if (!query) {
-          throw new Error("No query from OpenAI")
+          throw new Error("No SQL returned from OpenAI. Try again.")
         }
 
         const trimmed = query.replace(newLinesAndCarriageReturns, " ")
@@ -54,7 +56,7 @@ export const queryGPT = (_extensionArgs: Args) =>
         const ctx = Prisma.getExtensionContext(this)
 
         try {
-          const res = await (ctx as any).$queryRawUnsafe(`${trimmed} `)
+          const res = await (ctx as any).$queryRawUnsafe(trimmed)
           return res
         } catch (e) {
           console.log(e)
